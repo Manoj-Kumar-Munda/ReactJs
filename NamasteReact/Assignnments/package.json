@@ -1,0 +1,26 @@
+{
+  "name": "assignnments",
+  "version": "1.0.0",
+  "description": "These are the coding assignments of Namaste React Course",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "( https://github.com/Manoj-Kumar-Munda/ReactJs.git)"
+  },
+  "keywords": [
+    "react",
+    "assignments",
+    "coding"
+  ],
+  "author": "Manoj",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
