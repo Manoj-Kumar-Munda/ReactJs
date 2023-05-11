@@ -1,45 +1,14 @@
 
 import RestaurantCard from "./RestaurantCard";
 import { useState } from "react";
+import resList from "../utils/mockData";
 
 
 
 const Body = () => {
 
   //Local state variable
-  const [restaurantList] = useState([
-    {
-      data: {
-        data: {
-          id: "84458",
-          name: "Sensex The Tea Point",
-          uuid: "3c72d04c-5bc1-4822-9cc2-8d5fb59a87f0",
-          cloudinaryImageId: "nzma6kl7rfizwtcfc3vy",
-          cuisines: [
-            "North Indian",
-            "Continental",
-            "Biryani",
-          ],
-  
-          "avgRating": "3.8"
-        },
-      },
-    },
-    {
-      data: {    
-        data: {
-          id: "84455",
-          name: "Kaveri",
-          uuid: "3c72d04c-5bc1-4822-9cc2-8d5fb59a87f0",
-          cloudinaryImageId: "19ce20eb68d3abef762ebce33b535640",
-          cuisines: [
-            "North Indian",
-          ],
-          "avgRating": "4.1"
-        },
-      },
-    }
-  ]);
+  const [restaurantList, setRestaurantList] = useState( resList );
 
 
   //Normal JS variable
@@ -83,10 +52,10 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            restaurantList = restaurantList.filter(
-              ( res ) => res.data.data.avgRating > 4
+            const filteredList = restaurantList.filter(
+              ( res ) => res.data.data.avgRating > 3.5
             );
-            console.log(restaurantList);
+            setRestaurantList(filteredList);
           }
         }
         >
@@ -94,7 +63,7 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {restaurantList.map((restaurant) => (
+        { restaurantList.map((restaurant) => (
           <RestaurantCard
             key={restaurant.data.data.id}
             resData={restaurant.data.data}
