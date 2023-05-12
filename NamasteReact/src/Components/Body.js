@@ -10,6 +10,8 @@ const Body = () => {
   //Local state variable
   const [restaurantList, setRestaurantList] = useState( resList );
 
+  const [searchInput, setSearchInput ] = useState("");
+
 
   //Normal JS variable
   let restaurantListJS = [
@@ -61,6 +63,33 @@ const Body = () => {
         >
           Top Rated Restaurant
         </button>
+      </div>
+      <div className="search-bar">
+        <input 
+        id="search-input" 
+        placeholder="search"
+        value={searchInput} 
+        onChange={ (e) => {
+          setSearchInput(e.target.value);
+        }
+
+        }/>
+        <h2>{searchInput}</h2>
+        <button 
+          className="search-btn"
+          onClick={ () => {
+            //filter the resList as per the given input
+            const matchedRes = resList.filter(
+              (res) => res.data.data.name.toLowerCase().includes(searchInput)
+            );
+            setRestaurantList(matchedRes);
+            console.log(matchedRes);
+
+          }}
+        >
+          Search
+        </button>
+
       </div>
       <div className="res-container">
         { restaurantList.map((restaurant) => (

@@ -68,10 +68,24 @@ html{
 .res-card h3{
     font-size: var(--normal-fonts);
 }
-
-.search{
-    padding: 10px;
+.search-bar{
+    margin-block: 15px;
+}
+#search-input{
+    padding: 8px;
     font-size: var(--normal-fonts);
+    border: 1px solid #d9d9d9
+}
+.search{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
+
+}
+.search-btn{
+    padding: 8px;
+    font-size: var(--normal-fonts);
+    border: 1px solid #d9d9d9
 }
 .res-img{
     object-fit: cover;

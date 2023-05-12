@@ -2,7 +2,6 @@
   "name": "react-js",
   "version": "1.0.0",
   "description": "This is namaste React by Akshay Saini",
-
   "scripts": {
     "start": "parcel ./NamasteReact/index.html",
     "build": "parcel build ./NamasteReact/index.html",
