@@ -1,54 +1,63 @@
 
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
-import resList from "../utils/mockData";
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
+
 
 
 
 const Body = () => {
 
   //Local state variable
-  const [restaurantList, setRestaurantList] = useState( resList );
+  const [restaurantList, setRestaurantList] = useState( [] );
+
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   const [searchInput, setSearchInput ] = useState("");
 
+  function getList( list ){
+    const restaurant = list?.data?.cards.filter( (res) => res?.cardType == 'restaurant');
+    return restaurant;
+
+  }
+
+  function filterData( searchInput, restaurantList){
+    const data = restaurantList.filter( (res) => res?.data?.data?.name.toLowerCase().includes(searchInput.toLowerCase()));
+    return data;
+  }
+
+  useEffect( () => {
+    //API call
+    getAllRestaurants();
+  }
+  ,[])
+
+  async function getAllRestaurants(){
+    const data = await fetch("https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&lat=23.3440997&lng=85.309562&carousel=true&third_party_vendor=1");
+    const json = await data.json();
+    const restaurants = getList(json);
+    setRestaurantList(restaurants);
+    setFilteredRestaurant(restaurants);
+  }
+
 
   //Normal JS variable
-  let restaurantListJS = [
-    {
-      data: {
-        data: {
-          id: "84458",
-          name: "Sensex The Tea Point",
-          uuid: "3c72d04c-5bc1-4822-9cc2-8d5fb59a87f0",
-          cloudinaryImageId: "nzma6kl7rfizwtcfc3vy",
-          cuisines: [
-            "North Indian",
-            "Continental",
-            "Biryani",
-          ],
-  
-          "avgRating": "3.8"
-        },
-      },
-    },
-    {
-      data: {    
-        data: {
-          id: "84455",
-          name: "Kaveri",
-          uuid: "3c72d04c-5bc1-4822-9cc2-8d5fb59a87f0",
-          cloudinaryImageId: "19ce20eb68d3abef762ebce33b535640",
-          cuisines: [
-            "North Indian",
-          ],
-          "avgRating": "4.1"
-        },
-      },
-    }
-  ];
+  console.log("render");
 
-  return (
+  //Conditional rendering
+  //if restaurant is empty => shimmer UI
+  // if restaurant has data => actual data UI
+
+  if( !restaurantList){
+    return null;
+  }
+/*
+  if( filteredRestaurant?.length === 0){
+    return <h2>No match found</h2>;
+  }
+  */
+
+  return ( restaurantList?.length === 0) ? <Shimmer/> : (
     <div className="body">
       <div className="filter">
         <button
@@ -74,17 +83,12 @@ const Body = () => {
         }
 
         }/>
-        <h2>{searchInput}</h2>
         <button 
           className="search-btn"
           onClick={ () => {
             //filter the resList as per the given input
-            const matchedRes = resList.filter(
-              (res) => res.data.data.name.toLowerCase().includes(searchInput)
-            );
-            setRestaurantList(matchedRes);
-            console.log(matchedRes);
-
+            const data = filterData( searchInput, restaurantList);
+            setFilteredRestaurant(data);
           }}
         >
           Search
@@ -92,12 +96,16 @@ const Body = () => {
 
       </div>
       <div className="res-container">
-        { restaurantList.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant.data.data.id}
-            resData={restaurant.data.data}
-          />
-        ))}
+        {/* write the logic for no match found after searching for a restaurant */}
+        {
+          (filteredRestaurant.length === 0)?( <h2>No match found</h2>):filteredRestaurant.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.data.data.id}
+              resData={restaurant.data.data}
+            />
+          ))
+        }
+        
       </div>
     </div>
   );
