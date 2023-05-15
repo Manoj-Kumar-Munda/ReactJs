@@ -99,3 +99,8 @@ html{
     padding: 8px 12px;
     cursor: pointer;
 }
+
+.menu{
+    display: flex;
+    gap: 3rem;
+}
