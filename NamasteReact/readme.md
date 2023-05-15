@@ -59,5 +59,24 @@ import {Component} from "path"
 
 - ( Normal JS Utility functions )
 
-- useState() - Super powerful react state variables
-- useEffect()
+- useState() 
+    - Super powerful react state variables.
+    - react gives us useState to create local state variable inside a functional component,so never declare a state variable outside a functional  component.
+    - It should not be called inside a for loop or if-else.
+
+
+
+
+**React Routers**
+
+-   There are two kinds of routing:
+    - i.) Client-side routing
+    - ii.) Server-side routing
+
+-   If you want to create nested routes then you have to use <Outlet />
+-   All the childrens inside the router variable goes into the outlet component.
+
+***Important components***
+- createBrowserRouter
+- RouterProvider
+- Outlet

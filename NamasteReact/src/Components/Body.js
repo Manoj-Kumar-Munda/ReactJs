@@ -1,6 +1,7 @@
 
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
+import RestCardSkeleton from "./RestCardSkeleton";
 import Shimmer from "./Shimmer";
 
 
@@ -26,6 +27,11 @@ const Body = () => {
     return data;
   }
 
+  function filterTopRated( restaurantList ){
+    const data = restaurantList.filter( (res) => res?.data?.data?.avgRating > 4);
+    return data;
+  }
+
   useEffect( () => {
     //API call
     getAllRestaurants();
@@ -33,40 +39,33 @@ const Body = () => {
   ,[])
 
   async function getAllRestaurants(){
-    const data = await fetch("https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&lat=23.3440997&lng=85.309562&carousel=true&third_party_vendor=1");
+    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.366893297739587&lng=85.33701281994581&offset=15&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING");
     const json = await data.json();
+    console.log(json);
     const restaurants = getList(json);
     setRestaurantList(restaurants);
     setFilteredRestaurant(restaurants);
   }
 
-
-  //Normal JS variable
-  console.log("render");
-
   //Conditional rendering
   //if restaurant is empty => shimmer UI
   // if restaurant has data => actual data UI
 
-  if( !restaurantList){
-    return null;
-  }
+  
 /*
   if( filteredRestaurant?.length === 0){
     return <h2>No match found</h2>;
   }
   */
 
-  return ( restaurantList?.length === 0) ? <Shimmer/> : (
+  return (
     <div className="body">
       <div className="filter">
         <button
           className="filter-btn"
           onClick={() => {
-            const filteredList = restaurantList.filter(
-              ( res ) => res.data.data.avgRating > 3.5
-            );
-            setRestaurantList(filteredList);
+            const filteredList = filterTopRated(restaurantList);
+            setFilteredRestaurant(filteredList);
           }
         }
         >
@@ -98,12 +97,20 @@ const Body = () => {
       <div className="res-container">
         {/* write the logic for no match found after searching for a restaurant */}
         {
-          (filteredRestaurant.length === 0)?( <h2>No match found</h2>):filteredRestaurant.map((restaurant) => (
+  
+          (restaurantList.length === 0)?
+          ([1,2,3,4,5,6,7,8,9,10].map( 
+            (n) => <RestCardSkeleton key = {n}/>
+            )
+          ):
+          ((filteredRestaurant.length ===0 )?
+          (<h2>No match found</h2>): 
+          filteredRestaurant.map((restaurant) => (
             <RestaurantCard
               key={restaurant.data.data.id}
               resData={restaurant.data.data}
             />
-          ))
+          )) )
         }
         
       </div>
