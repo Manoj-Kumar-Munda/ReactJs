@@ -80,3 +80,9 @@ import {Component} from "path"
 - createBrowserRouter
 - RouterProvider
 - Outlet
+
+***Formik***
+It is an npm package that is used for - 
+- i.) Managing the form state
+- ii.) Handling form submissions
+- iii.) Validation and error messages

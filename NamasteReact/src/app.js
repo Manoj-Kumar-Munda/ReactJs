@@ -9,6 +9,7 @@ import Error from "./Components/Error.js"
 import Footer from "./Components/Footer.js";
 import Contact from "./Components/Contact.js";
 import RestaurantMenu from "./Components/RestaurantMenu.js";
+import Form from "./Components/Form.js";
 
 const AppLayout = () => {
     return (
@@ -41,6 +42,10 @@ const appRouter = createBrowserRouter([
             {
                 path : "/restaurant/:resId",
                 element : <RestaurantMenu />
+            },
+            {
+                path : "/form",
+                element : <Form />
             }
 
         ],
