@@ -64,6 +64,17 @@ import {Component} from "path"
     - react gives us useState to create local state variable inside a functional component,so never declare a state variable outside a functional  component.
     - It should not be called inside a for loop or if-else.
 
+- useEffect()
+    - It is basically used to make API calls.
+    - Syntax:
+         useEffect( callback(), [dependency_array]*);
+    - We can omit the second parameter,if we do not pass the dependency array then the useEffect() method will be called on every render.
+    - If we pass [] an empty array as the second parameter,then the useEffect() method will be invoked only once that is after the initial render.
+    - If we pass any variable to the dependency array then the useEffect() method will be called whenever there is any change occurs in the passed variable.
+
+    - we can also return some values using useEffect(), but the value is returned when the component inside which the useEffect() method is created is destroyes i.e when we render some other component and destroy the current one.
+
+
 
 
 
@@ -81,8 +92,15 @@ import {Component} from "path"
 - RouterProvider
 - Outlet
 
+Note : Never try to import a component dynamically inside another component.
+
 ***Formik***
 It is an npm package that is used for - 
 - i.) Managing the form state
 - ii.) Handling form submissions
 - iii.) Validation and error messages
+
+
+**Code Splitting/ On-demand loading**
+- lazy
+- Suspense(fallback = {})

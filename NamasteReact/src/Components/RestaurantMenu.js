@@ -2,42 +2,22 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CDN_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import useRestaurant from "./useRestaurant";
+import useRestaurantMenu from "./useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
-  const [restaurantInfo, setRestaurantInfo] = useState(null);
-
-  const [restaurantMenu, setRestaurantMenu] = useState(null);
-
-  useEffect(() => {
-    getRestaurantInfo();
-  }, []);
-
-  async function getRestaurantInfo() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.366893297739587&lng=85.33701281994581&restaurantId="+resId+"&submitAction=ENTER"
-    );
-    const restInfo = await data.json();
-    const resInfo =   await getResInfo(restInfo);
-    const resMenu =   await getResMenu(restInfo);
-    console.log(resInfo);
-    console.log(resMenu);
-    setRestaurantInfo(resInfo);
-    setRestaurantMenu(resMenu);
-  }
+  const restaurant = useRestaurant(resId);
+  const restaurantInfo = getResInfo(restaurant);
+  const restaurantMenu = useRestaurantMenu(resId);
 
   function getResInfo(info) {
     const data =  info?.data?.cards[0]?.card?.card?.info;
     return data;
   }
 
-  async function getResMenu(info) {
-    const data = await info?.data?.cards[3]?.groupedCard?.cardGroupMap?.REGULAR?.cards.slice(1)[0].card.card;
-    return data;
-  }
 
-  return !restaurantInfo ? (
+  return (!restaurantInfo) ? (
     <Shimmer type="thumbnail" />
   ) : (
     <div className="menu">
@@ -51,10 +31,10 @@ const RestaurantMenu = () => {
         <h3>{restaurantInfo?.avgRating} stars</h3>
       </div>
 
-      {(!restaurantMenu) ? (
-        <Shimmer type="thumbnail" />
-      ) : (
-        <div>
+      {
+        (!restaurantMenu)?(<Shimmer type="thumbnail"/>) :
+        (
+          <div>
           <h2>Menu</h2>
           <h3>{restaurantMenu.title}</h3>
 
@@ -65,7 +45,8 @@ const RestaurantMenu = () => {
           </ul>
           <ul></ul>
         </div>
-      )}
+        )
+      }
     </div>
   );
 };

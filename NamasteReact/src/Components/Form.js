@@ -14,15 +14,15 @@ const Form = () => {
         },
         validate : ( values ) => {
             let errors = {};
-            if(!value.name){
+            if(!values.name){
                 errors.name = "!Required";
             }
 
-            if(!value.email){
+            if(!values.email){
                 errors.name = "!Required";
             }
 
-            if(!value.channel){
+            if(!values.channel){
                 errors.name = "!Required";
             }
         }

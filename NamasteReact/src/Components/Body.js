@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import RestCardSkeleton from "./RestCardSkeleton";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnline from "./useOnline";
+import { RESTAURANT_LIST_URL } from "../utils/constants.js";
 
 const Body = () => {
   //Local state variable
@@ -37,9 +39,7 @@ const Body = () => {
   }, []);
 
   async function getAllRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.366893297739587&lng=85.33701281994581&offset=15&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING"
-    );
+    const data = await fetch(RESTAURANT_LIST_URL);
     const json = await data.json();
     console.log(json);
     const restaurants = getList(json);
@@ -47,9 +47,13 @@ const Body = () => {
     setFilteredRestaurant(restaurants);
   }
 
-  //Conditional rendering
-  //if restaurant is empty => shimmer UI
-  // if restaurant has data => actual data UI
+  const isOnline = useOnline();
+
+  if(! isOnline ){
+    return <h1>You are offline</h1>;
+  }
+
+
 
   return (
     <div className="body">

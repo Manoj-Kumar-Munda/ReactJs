@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header.js"
 import Body from "./Components/Body.js";
@@ -10,6 +10,11 @@ import Footer from "./Components/Footer.js";
 import Contact from "./Components/Contact.js";
 import RestaurantMenu from "./Components/RestaurantMenu.js";
 import Form from "./Components/Form.js";
+import Profile from "./Components/Profile.js";
+import Shimmer from "./Components/Shimmer";
+
+//Never ever do lazy loading inside a component
+const Instamart = lazy( () => import('./Components/instamart.js'));
 
 const AppLayout = () => {
     return (
@@ -33,7 +38,13 @@ const appRouter = createBrowserRouter([
             },
             {
                 path : "/about",
-                element : <About />
+                element : <About />,
+                children : [
+                    {
+                        path : "profile",
+                        element : <Profile />
+                    }
+                ]
             },
             {
                 path : "/contact",
@@ -46,6 +57,14 @@ const appRouter = createBrowserRouter([
             {
                 path : "/form",
                 element : <Form />
+            },
+            {
+                path : "/instamart",
+                element : (
+                    <Suspense fallback={<Shimmer type="thumbnail"/>}>
+                        <Instamart />
+                    </Suspense>
+                )
             }
 
         ],
