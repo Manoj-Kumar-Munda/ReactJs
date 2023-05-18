@@ -1,7 +1,7 @@
 **Assignment 2**
 
 Q.1) What is NPM?
-- Node Package Manager (NPM) is a command line tool that installs, updates or uninstalls Node.js packages in your application. It is also an online repository for open-source Node.js packages. The node community around the world creates useful modules and publishes them as packages in this repository.
+ - Node Package Manager (NPM) is a command line tool that installs, updates or uninstalls Node.js packages in your application. It is also an online repository for open-source Node.js packages. The node community around the world creates useful modules and publishes them as packages in this repository.
 
 Q.2) What is 'Parcel'? Why do we need it?
 - When developing a site or web application, it’s good practice to separate your code into smaller, more manageable chunks. In production, requesting all of your resources individually can slow down your application. A bundler is a tool used to solve this latency issue by combining and merging your code into a single file. This limits the amount of HTTP requests to a server for those resources. Using a bundler is useful for optimizing the experience for both the user and developer.

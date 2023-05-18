@@ -1,7 +1,7 @@
 **Assignments - 1**
 
 Q.1) What is emmet ?
- -    Emmet is a free add-on for your text editor that allows you to type shortcuts that are then expanded into full pieces of code.
+- Emmet is a free add-on for your text editor that allows you to type shortcuts that are then expanded into full pieces of code.
 
 Q.2) Difference between a library and a framework?
  -   Library is like building your home from the ground up. The house can be made in any style you prefer and the rooms can be arranged and decorated however you like. Framework, on the other hand, is like buying a new home. The house is already built, so you don’t have to worry about building problems, but you can’t choose how the rooms are arranged.
